@@ -32,8 +32,6 @@ namespace KyivSchedule.Controllers
 
             await _plannerService.UpdateOutageTimesAsync(groupNumber, newOutageTimes);
             return Ok("The schedule has been updated successfully");
-            
-
         }
 
         [HttpGet("{groupNumber}")]

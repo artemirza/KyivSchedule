@@ -41,7 +41,6 @@ namespace DataAccessLayer.Repositories
 
         public async Task UpdateOutageTimesAsync(int groupId, List<TimeRange> newOutageTimes)
         {
-
             var group = await GetGroupByNumberAsync(groupId);
 
             if (group == null)

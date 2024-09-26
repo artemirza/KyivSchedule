@@ -18,7 +18,6 @@ namespace KyivSchedule
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -62,7 +61,6 @@ namespace KyivSchedule
                     throw;
                 }
             });
-
 
             app.MapControllers();
 
