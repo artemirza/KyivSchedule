@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IExportRepository
+    public interface ITimeRangeValidationService
     {
-        Task<List<Group>> GetAllGroupsAsync(int page);
-        Task<Group?> GetGroupByNumberAsync(int groupNumber);
+        List<TimeRange> ParseAndValidateTimeRanges(string timeRangesString); 
     }
 }

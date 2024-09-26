@@ -27,7 +27,7 @@ namespace KyivSchedule.Controllers
         }
 
         [HttpPut("{groupNumber}")]
-        public async Task<IActionResult> UpdateOutageTimes(int groupNumber, [FromBody] List<TimeRangeDto> newOutageTimes)
+        public async Task<IActionResult> UpdateOutageTimes(int groupNumber, [FromBody] List<string> newOutageTimes)
         {
 
             await _plannerService.UpdateOutageTimesAsync(groupNumber, newOutageTimes);

@@ -10,7 +10,7 @@ namespace BusinessLogicLayer.Interfaces
 {
     public interface IExportService
     {
-        Task<List<ExportGroupDto>> ExportAllSchedulesAsync();
+        Task<List<ExportGroupDto>> ExportAllSchedulesAsync(int page);
         Task<ExportGroupDto> ExportScheduleByGroupAsync(int groupNumber);
     }
 }

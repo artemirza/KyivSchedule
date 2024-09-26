@@ -24,9 +24,9 @@ namespace BusinessLogicLayer.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ExportGroupDto>> ExportAllSchedulesAsync()
+        public async Task<List<ExportGroupDto>> ExportAllSchedulesAsync(int page)
         {
-            var groups = await _exportRepository.GetAllGroupsAsync();
+            var groups = await _exportRepository.GetAllGroupsAsync(page);
             return _mapper.Map<List<ExportGroupDto>>(groups);
         }
 

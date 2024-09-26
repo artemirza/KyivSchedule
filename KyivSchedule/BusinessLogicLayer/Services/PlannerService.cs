@@ -20,18 +20,19 @@ namespace BusinessLogicLayer.Services
     public class PlannerService : IPlannerService
     {
         private readonly IPlannerRepository _plannerRepository;
-        private readonly ILineParserService _lineParserService;
         private readonly IFileRepository _fileRepository;
+        private readonly ITimeRangeValidationService _timeRangeValidationService;
         private readonly IMapper _mapper;
         private readonly ILogger<PlannerService> _logger;
 
-        public PlannerService(IPlannerRepository plannerRepository, ILineParserService lineParserService, IFileRepository fileRepository, IMapper mapper, ILogger<PlannerService> logger)
+        public PlannerService(IPlannerRepository plannerRepository, IFileRepository fileRepository, 
+            ITimeRangeValidationService timeRangeValidationService, IMapper mapper, ILogger<PlannerService> logger)
         {
             _plannerRepository = plannerRepository;
-            _lineParserService = lineParserService;
             _fileRepository = fileRepository;
             _mapper = mapper;
             _logger = logger;
+            _timeRangeValidationService = timeRangeValidationService;
         }
 
         public async Task ImportFromFileAsync(IFormFile file)
@@ -48,11 +49,18 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public async Task UpdateOutageTimesAsync(int groupNumber, List<TimeRangeDto> newOutageTimesDto)
+        public async Task UpdateOutageTimesAsync(int groupNumber, List<string> newOutageTimesStrings)
         {
             try
             {
-                var newOutageTimes = _mapper.Map<List<TimeRange>>(newOutageTimesDto);
+                var newOutageTimes = new List<TimeRange>();
+
+                foreach (var outageTimeString in newOutageTimesStrings)
+                {
+                    var timeRanges = _timeRangeValidationService.ParseAndValidateTimeRanges(outageTimeString);
+                    newOutageTimes.AddRange(timeRanges);
+                }
+
                 await _plannerRepository.UpdateOutageTimesAsync(groupNumber, newOutageTimes);
             }
             catch (Exception ex)

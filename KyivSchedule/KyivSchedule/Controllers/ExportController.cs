@@ -3,9 +3,7 @@ using BusinessLogicLayer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text;
-using System.Xml;
-using Formatting = Newtonsoft.Json.Formatting;
+
 
 namespace KyivSchedule.Controllers
 {
@@ -21,9 +19,9 @@ namespace KyivSchedule.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ExportAllSchedules()
+        public async Task<IActionResult> ExportAllSchedules(int page)
         {
-            var schedules = await _exportService.ExportAllSchedulesAsync();
+            var schedules = await _exportService.ExportAllSchedulesAsync(page);
 
             return Ok(schedules);
         }

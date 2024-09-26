@@ -19,9 +19,20 @@ namespace DataAccessLayer.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<Group>> GetAllGroupsAsync()
+        public async Task<List<Group>> GetAllGroupsAsync(int page)
         {
+            var pageSize = 3f;
+            var totalCount = _dbContext.Groups.Count();
+            var totalPages = Math.Ceiling(totalCount / pageSize);
+
+            if (page < 1)
+            {
+                page = 1;
+            }
+
             return await _dbContext.Groups
+                .Skip((page - 1) * (int)pageSize)
+                .Take((int)pageSize)
                 .Include(g => g.OutageTimes)
                 .AsNoTracking()
                 .ToListAsync();

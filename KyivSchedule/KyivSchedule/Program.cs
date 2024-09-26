@@ -33,6 +33,7 @@ namespace KyivSchedule
             builder.Services.AddScoped<IPlannerService, PlannerService>();
             builder.Services.AddScoped<IExportService, ExportService>();
             builder.Services.AddScoped<IExportRepository, ExportRepository>();
+            builder.Services.AddScoped<ITimeRangeValidationService, TimeRangeValidationService>();
             builder.Services.AddScoped<IPlannerRepository, PlannerRepository>();
             builder.Services.AddScoped<IFileRepository, FileRepository>();
 

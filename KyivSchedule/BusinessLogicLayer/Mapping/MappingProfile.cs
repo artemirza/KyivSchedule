@@ -18,10 +18,6 @@ namespace BusinessLogicLayer.Mapping
                 .ForMember(dest => dest.OutageTimes, opt => opt.MapFrom(src => src.OutageTimes));
 
             CreateMap<TimeRange, ExportTimeRangeDto>();
-
-            CreateMap<TimeRangeDto, TimeRange>()
-                .ForMember(dest => dest.Start, opt => opt.MapFrom(src => TimeSpan.Parse(src.Start)))
-                .ForMember(dest => dest.End, opt => opt.MapFrom(src => TimeSpan.Parse(src.End)));
         }
     }
 }
